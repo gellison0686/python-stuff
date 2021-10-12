@@ -7,6 +7,8 @@ pygame.display.set_caption("PAPA G SMELLS")
 
 BORDER = pygame.Rect(WIDTH/2 - 5, 0, 10, HEIGHT)
 
+BULLET_VEL = 7
+
 VEL = 5
 
 BLACK = (0, 0, 0)
@@ -53,6 +55,8 @@ def main():
     red = pygame.Rect(900, 300, SPACESHIP_WIDTH, SPACESHIP_HEIGHT)
     yellow = pygame.Rect(200, 300, SPACESHIP_WIDTH, SPACESHIP_HEIGHT)
 
+    bullets = []
+
     clock = pygame.time.Clock()
     run = True
     while run:
@@ -60,6 +64,11 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
+
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_LCTRL:
+
+                if event.key == pygame.K_RCTRL:
 
         keys_pressed = pygame.key.get_pressed()
         yellow_handle_movement(keys_pressed, yellow)
