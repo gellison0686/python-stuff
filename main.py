@@ -11,7 +11,7 @@ BULLET_VEL = 7
 
 MAX_BULLETS = 9
 
-VEL = 5
+VEL = 5#while
 
 BLACK = (0, 0, 0)
 RED = (255, 0, 0)
@@ -39,10 +39,10 @@ def draw_window(red, yellow, red_bullets, yellow_bullets):
     WIN.blit(RED_SPACESHIP, (red.x, red.y))
 
     for bullet in red_bullets:
-        pygame.draw.rect(WIN, YELLOW, bullet)  ###########################
+        pygame.draw.rect(WIN, RED, bullet)
 
     for bullet in yellow_bullets:
-        pygame.draw.rect(WIN, RED, bullet)  ############################
+        pygame.draw.rect(WIN, YELLOW, bullet)
 
     pygame.display.update()
 
@@ -98,6 +98,7 @@ def main():
                 if event.key == pygame.K_LCTRL and len(yellow_bullets) < MAX_BULLETS:
                     bullet = pygame.Rect(yellow.x + yellow.width, yellow.y + yellow.height//2 - 2, 10, 5)
                     yellow_bullets.append(bullet)
+                    print(yellow_bullets)
 
                 if event.key == pygame.K_RCTRL and len(red_bullets) < MAX_BULLETS:
                     bullet = pygame.Rect(red.x, red.y + red.height//2 - 2, 10, 5)
