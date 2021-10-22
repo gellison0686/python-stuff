@@ -1,5 +1,6 @@
 import pygame
 import os
+pygame.font.init()
 
 WIDTH, HEIGHT = 1100, 700
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -7,10 +8,10 @@ pygame.display.set_caption("PAPA G SMELLS")
 
 BORDER = pygame.Rect(WIDTH//2 - 5, 0, 10, HEIGHT)
 
+HEALTH_FONT = pygame.font.SysFont('comicsans', 40)
+
 BULLET_VEL = 7
-
 MAX_BULLETS = 12
-
 VEL = 5
 
 BLACK = (0, 0, 0)
@@ -35,9 +36,15 @@ RED_SPACESHIP = pygame.transform.rotate(pygame.transform.scale(RED_SPACESHIP_IMA
 SPACE = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'space.png')), (WIDTH, HEIGHT))
 
 
-def draw_window(red, yellow, yellow_bullets, red_bullets):
+def draw_window(red, yellow, yellow_bullets, red_bullets, red_health, yellow_health):
     WIN.blit(SPACE, (0, 0))
     pygame.draw.rect(WIN, BLACK, BORDER)
+
+    red_health_text = HEALTH_FONT.render("HEALTH: " + str(red_health), 1, WHITE)
+    yellow_health_text = HEALTH_FONT.render("HEALTH: " + str(red_health), 1, WHITE)
+    WIN.blit(red_health_text, (WIDTH - red_health_text.get_width() - 10, 10))
+    WIN.blit(yellow_health_text, (10, 10))
+
     WIN.blit(YELLOW_SPACESHIP, (yellow.x, yellow.y))
     WIN.blit(RED_SPACESHIP, (red.x, red.y))
 
@@ -93,6 +100,9 @@ def main():
     red_bullets = []
     yellow_bullets = []
 
+    red_health = 10
+    yellow_health = 10
+
     clock = pygame.time.Clock()
     run = True
     while run:
@@ -110,13 +120,29 @@ def main():
                     bullet = pygame.Rect(red.x, red.y + red.height//2 - 2, 10, 5)
                     red_bullets.append(bullet)
 
+            if event.type == RED_HIT:
+                red_health -= 1
+
+            if event.type == YELLOW_HIT:
+                yellow_health -= 1
+
+        winner_text = ""
+        if red_health <=0:
+            winner_text = "WIN WINWNINN NHJOIUJ JIJW EDINF"
+
+        if yellow_health <=0:
+            winner_text = "WIN WINWNINN NHJOIUJ JIJW EDINF"
+
+        if winner_text != "":
+            pass
+
         keys_pressed = pygame.key.get_pressed()
         yellow_handle_movement(keys_pressed, yellow)
         red_handle_movement(keys_pressed, red)
 
         handle_bullets(yellow_bullets, red_bullets, yellow, red)
 
-        draw_window(red, yellow, yellow_bullets, red_bullets)
+        draw_window(red, yellow, yellow_bullets, red_bullets, red_health, yellow_health)
 
     pygame.quit()
 
