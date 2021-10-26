@@ -9,9 +9,10 @@ pygame.display.set_caption("PAPA G SMELLS")
 BORDER = pygame.Rect(WIDTH//2 - 5, 0, 10, HEIGHT)
 
 HEALTH_FONT = pygame.font.SysFont('comicsans', 40)
+WIN_FONT = pygame.font.SysFont('comicsans', 120)
 
 BULLET_VEL = 7
-MAX_BULLETS = 12
+MAX_BULLETS = 3
 VEL = 5
 
 BLACK = (0, 0, 0)
@@ -41,7 +42,7 @@ def draw_window(red, yellow, yellow_bullets, red_bullets, red_health, yellow_hea
     pygame.draw.rect(WIN, BLACK, BORDER)
 
     red_health_text = HEALTH_FONT.render("HEALTH: " + str(red_health), 1, WHITE)
-    yellow_health_text = HEALTH_FONT.render("HEALTH: " + str(red_health), 1, WHITE)
+    yellow_health_text = HEALTH_FONT.render("HEALTH: " + str(yellow_health), 1, WHITE)
     WIN.blit(red_health_text, (WIDTH - red_health_text.get_width() - 10, 10))
     WIN.blit(yellow_health_text, (10, 10))
 
@@ -93,6 +94,12 @@ def handle_bullets(yellow_bullets, red_bullets, yellow, red):
         elif bullet.x < 0:
             red_bullets.remove(bullet)
 
+def draw_winner(text):
+    draw_text = WINNER_FONT.render(text, 1, WHITE)
+    WIN.blit(draw_text, (WIDTH/2 - draw_text.get_width()/2, HEIGHT/2 - draw_text.get_height()/2))
+    pygame.display.update()
+    pygame.time.delay(4000)
+
 def main():
     red = pygame.Rect(900, 300, SPACESHIP_WIDTH, SPACESHIP_HEIGHT)
     yellow = pygame.Rect(200, 300, SPACESHIP_WIDTH, SPACESHIP_HEIGHT)
@@ -134,7 +141,8 @@ def main():
             winner_text = "WIN WINWNINN NHJOIUJ JIJW EDINF"
 
         if winner_text != "":
-            pass
+            draw_winner(winner_text)
+            break
 
         keys_pressed = pygame.key.get_pressed()
         yellow_handle_movement(keys_pressed, yellow)
