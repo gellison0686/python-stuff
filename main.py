@@ -9,7 +9,7 @@ pygame.display.set_caption("PAPA G SMELLS")
 BORDER = pygame.Rect(WIDTH//2 - 5, 0, 10, HEIGHT)
 
 HEALTH_FONT = pygame.font.SysFont('comicsans', 40)
-WIN_FONT = pygame.font.SysFont('comicsans', 120)
+WINNER_FONT = pygame.font.SysFont('comicsans', 100)
 
 BULLET_VEL = 7
 MAX_BULLETS = 3
